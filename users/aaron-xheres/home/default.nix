@@ -35,6 +35,7 @@
   home.packages = with pkgs; [
     # Archives
     p7zip
+    unzip
 
     # Utilities
     ripgrep
@@ -53,7 +54,8 @@
     htop
     btop
 
-    # Others
-    neofetch
+    # Build
+    gnumake
+    gcc
   ];
 }
