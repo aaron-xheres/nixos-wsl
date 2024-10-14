@@ -6,6 +6,7 @@
   imports = [
      ./shell
      ./nvim
+     ./git.nix
   ];
 
   # Home Configuration
@@ -23,13 +24,6 @@
     stateVersion = "24.05";
   };
 
-  # Defalt Git Configurations
-  ## To move to individual import if config gets larger
-  programs.git = {
-    enable = true;
-    userName = "Aaron Xheres Tan";
-    userEmail = "aaron.xheres@gmail.com";
-  };
 
   # Programs
   home.packages = with pkgs; [
