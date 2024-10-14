@@ -7,6 +7,7 @@
      ./shell
      ./nvim
      ./git.nix
+     ./nix-direnv.nix
   ];
 
   # Home Configuration
