@@ -28,10 +28,10 @@
       bind v split-window -v
       
       # Pane Movement
-      bind -n M-k select-pane -U
-      bind -n M-j select-pane -D
-      bind -n M-h select-pane -L
-      bind -n M-l select-pane -R
+      bind -n M-K select-pane -U
+      bind -n M-J select-pane -D
+      bind -n M-H select-pane -L
+      bind -n M-L select-pane -R
 
       # Session
       unbind c

@@ -1,7 +1,7 @@
 {
   imports = [
     ./zsh
-    ./tmux
+    ./tmux.nix
     ./fzf.nix
     ./bat.nix
   ];
