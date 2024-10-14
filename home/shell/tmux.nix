@@ -38,13 +38,13 @@
       unbind p
       unbind n
       bind t new-window
-      bind c kill-window
+      bind c kill-pane
 
       # Session Movement
       unbind (
       unbind )
-      bind -n M-] switch-client -n
-      bind -n M-[ switch-client -p
+      bind -n M-] select-window -n
+      bind -n M-[ select-window -p
 
       # Reload Config
       bind r source-file ~/.config/tmux/tmux.conf
