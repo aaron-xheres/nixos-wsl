@@ -7,7 +7,7 @@ dir_omz=".config/omz"
 
 # Variables
 copy_config=true
-git_push=true
+git_push=false
 nixos_dir="/nixos"
 commit_msg="update nixos-wsl"
 
@@ -18,7 +18,6 @@ usage() {
   echo
   echo "Options:"
   echo "  -c, --no-copy-config  Skip copy configurations from current home"
-  echo "  -g, --no-git-push         Skip git push"
   echo "  -m, --message         Commit Message"
   echo "  -n, --nixos-dir       NixOS flake directory"
   echo
@@ -46,14 +45,12 @@ if (( $#_copy_config )); then
   copy_config=false
 fi
 
-# -g
-if (( $#_git_push )); then
-  git_push=false
-fi
-
 # -m <args>
 if [[ -n $_commit_msg ]]; then
   commit_msg=${_commit_msg[2]}
+  git_push=true
+else
+  commit_msg=""
 fi
 
 # -n <args>
