@@ -172,6 +172,11 @@ else
 
     # Set ownership and permission back to user
     set_owner_permissions
+
+    # Revert user config directories
+    dir="${(P)var}"
+    sudo cp -rf "$tmp_dir/cdir/.config" "$HOME/.config"
+    sudo cp -rf "$tmp_dir/cdir/scripts" "$HOME/scripts"
   fi
 
   echo
