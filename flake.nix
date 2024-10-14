@@ -64,9 +64,6 @@
             system.stateVersion = "24.05";
             wsl.enable = true;
             wsl.defaultUser = username;
-
-            wsl.wslConf.interop.enable = true;
-            wsl.interop.includePath = true;
           }
 
           home-manager.nixosModules.home-manager {
