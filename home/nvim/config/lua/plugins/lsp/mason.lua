@@ -17,21 +17,33 @@ return {
 
     -- Check if specific bin exists, then ensure specific configs
     -- NodeJS
-    if os.execute("command -v node") == 0 then
+    if vim.cmd("silent! node -v") == 0 then
+      -- Langauge Server(s)
       table.insert(ensure_installed_ls, "ts_ls")
       table.insert(ensure_installed_ls, "cssls")
       table.insert(ensure_installed_ls, "tailwindcss")
+      -- Linter(s) / Formatter(s)
       table.insert(ensure_installed_fmt, "prettier")
       table.insert(ensure_installed_fmt, "eslint_d")
     end
 
-    if os.execute("command -v python") == 0 then
+    if vim.cmd("silent! python -V") == 0 then
+      -- Langauge Server(s)
       table.insert(ensure_installed_ls, "pyright")
+      -- Linter(s) / Formatter(s)
       table.insert(ensure_installed_fmt, "isort")
       table.insert(ensure_installed_fmt, "black")
       table.insert(ensure_installed_fmt, "pylint")
     end
 
+    if vim.cmd("silent! cargo -V") == 0 then
+      -- Langauge Server(s)
+      table.insert(ensure_installed_ls, "nil_ls")
+      table.insert(ensure_installed_ls, "rust_analyzer")
+      -- Linter(s) / Formatter(s)
+      table.insert(ensure_installed_fmt, "nixpkgs-fmt")
+      table.insert(ensure_installed_fmt, "rustfmt")
+    end
     require("mason").setup()
     require("mason-lspconfig").setup({
       ensure_installed = ensure_installed_ls,
