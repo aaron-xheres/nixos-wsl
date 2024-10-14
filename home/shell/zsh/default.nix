@@ -1,18 +1,40 @@
-{ config, ... }: {
-  home.file.".config/omz" = {
+{ ... }: {
+  home.file.".config/zsh/omz" = {
     source = ./omz;
     recursive = true;
   };
 
+  home.file.".config/zsh/sources" = {
+    source = ./sources;
+    recursive = true;
+  };
+  
+  programs.fd.enable = true;
   programs.zsh = {
     enable = true;
-    
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
     envExtra = ''
       export WINDOWS=/mnt/c
       export WINDOWS_HOME=/mnt/c/Users/$(powershell.exe -noninteractive -command "[Environment]::UserName" | sed -e "s/\r//g")
+    '';
+
+    initExtra = ''
+      export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+      export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+      export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+      _fzf_compgen_path() {
+        fd --hidden --exclude .git . "$1"
+      }
+
+      _fzf_compgen_dir() {
+        fd --type=d --hidden --exclude .git . "$1"
+      }
+
+      # -- Sources
+      source ~/.config/zsh/sources/fzf-git.sh
     '';
 
     shellAliases = {
@@ -30,6 +52,9 @@
 
       # ls
       lla = "eza -llah --group-directories-first";
+
+      # cat
+      cat = "bat";
     };
 
     history = {
@@ -39,7 +64,7 @@
 
     oh-my-zsh = {
       enable = true;
-      custom = "$HOME/.config/omz";
+      custom = "$HOME/.config/zsh/omz";
       theme = "themes/classyTouch";
       plugins = [ "git" "gh" "sudo" "eza" "fzf" ];
     };

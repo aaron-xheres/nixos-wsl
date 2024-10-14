@@ -4,7 +4,7 @@
 
   # Specific Program Imports
   imports = [
-     ./zsh
+     ./shell
      ./nvim
   ];
 
@@ -40,7 +40,6 @@
     # Utilities
     ripgrep
     tree
-    fzf
     jq
     eza
 
