@@ -7,6 +7,12 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
+    # Rust Overlay (always use latest stable)
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Home-Manager
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -20,16 +26,31 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-wsl, home-manager, nix-ld, ... } @ inputs: let
+  outputs = { 
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    rust-overlay,
+    nixos-wsl,
+    home-manager,
+    nix-ld, 
+    ... 
+  } @ inputs: let
     system = "x86_64-linux";
-    username = "aaron-xheres";
+    username = "nixos";
 
     pkgs-unstable = import nixpkgs-unstable { 
       inherit system;
       config.allowUnfree = true;
     };
 
-    specialArgs = { inherit inputs; inherit username; inherit pkgs-unstable; };
+    specialArgs = { 
+      inherit inputs; 
+      inherit username;
+      inherit nixpkgs;
+      inherit pkgs-unstable; 
+      inherit rust-overlay;
+    };
   in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
@@ -37,7 +58,7 @@
         inherit specialArgs;
         
         modules = [
-          ./users/${username}/nixos
+          ./system
 
           nixos-wsl.nixosModules.default {
             system.stateVersion = "24.05";
@@ -52,7 +73,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = inputs // specialArgs;
-            home-manager.users.${username} = import ./users/${username}/home;
+            home-manager.users.${username} = import ./home;
           }
           
           nix-ld.nixosModules.nix-ld

@@ -1,11 +1,12 @@
 { pkgs, lib, username, ... }: {
   imports = [
+    ./overlays
     ./system-packages.nix
   ];
 
   users.users.${username} = {
     isNormalUser = true;
-    description = "Aaron Xheres Tan";
+    description = username;
     extraGroups = [ "wheel" ];
 
     shell = pkgs.zsh;

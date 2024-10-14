@@ -76,8 +76,7 @@ echo
 ####################
 
 # Directories
-username="$(id -un)"
-home_dir="$nixos_dir/users/$username/home"
+home_dir="$nixos_dir/home"
 tmp_dir="/tmp/nixos_bak"
   
 # cdir variable names

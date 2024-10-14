@@ -57,5 +57,7 @@
     # Build
     gnumake
     gcc
+
+    pkgs.rust-bin.stable.latest.default # Rust
   ];
 }
