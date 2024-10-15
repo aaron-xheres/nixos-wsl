@@ -8,6 +8,7 @@ dir_omz=".config/omz"
 # Variables
 copy_config=true
 git_push=false
+hostname=""
 nixos_dir="/nixos"
 commit_msg="update nixos-wsl"
 
@@ -20,6 +21,7 @@ usage() {
   echo "  -c, --no-copy-config  Skip copy configurations from current home"
   echo "  -m, --message         Commit Message"
   echo "  -n, --nixos-dir       NixOS flake directory"
+  echo "  -H, --hostname        Hostname"
   echo
   echo "  -h, --help            Display this help"
 
@@ -32,6 +34,7 @@ zparseopts -D -E \
   {g,-no-git-push}=_git_push \
   {m,-message}:=_commit_msg \
   {n,-nixos-dir}:=_nixos_dir \
+  {s,-hostname}:=_hostname \
   {h,-help}=_help
 
 # Handlers
@@ -58,6 +61,11 @@ if [[ -n $_nixos_dir ]]; then
   nixos_dir=${_nixos_dir[2]}
 fi
 
+# -s <args>
+if [[ -n $_hostname ]]; then
+  hostname=${_hostname[2]}
+fi
+
 ####################
 
 # Display current args
@@ -66,6 +74,7 @@ echo "Commit message: \"$commit_msg\""
 echo "Git Push: $git_push"
 echo "Copy configurations: $copy_config"
 echo "NixOS directory: $nixos_dir"
+echo "Hostname: $hostname"
 echo
 echo "--------------------"
 echo
@@ -129,7 +138,7 @@ set_owner_permissions
 
 # Build and switch NixOS
 git add .
-sudo nixos-rebuild switch --flake $nixos_dir
+sudo nixos-rebuild switch --flake ${nixos_dir}#${hostname}
 
 if [[ $? -eq 0 ]]; then
   if [[ "$git_push" = true ]]; then
