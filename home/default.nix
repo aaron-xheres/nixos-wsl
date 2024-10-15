@@ -6,8 +6,8 @@
   imports = [
      ./shell
      ./nvim
+     ./direnv
      ./git.nix
-     ./nix-direnv.nix
   ];
 
   # Home Configuration
