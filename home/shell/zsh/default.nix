@@ -21,6 +21,10 @@
     '';
 
     initExtra = ''
+      # -- Direnv
+      eval "$(direnv hook zsh)"
+
+      # -- FZF
       export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
       export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
       export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
@@ -40,10 +44,10 @@
         shift
 
         case "$command" in
-          cd)             fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+          cd)             fzf --preview "eza --tree --color=always {} | head -200" "$@" ;;
           export|unset)   fzf --preview "eval 'echo \$' {}" "$@"  ;;
           ssh)            fzf --preview "dig {}" "$@" ;;
-          *)              fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
+          *)              fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
         esac
       }
 
@@ -81,7 +85,7 @@
       enable = true;
       custom = "$HOME/.config/zsh/omz";
       theme = "themes/classyTouch";
-      plugins = [ "git" "gh" "sudo" "eza" "fzf" ];
+      plugins = [ "git" "gh" "sudo" "eza" "fzf" "direnv" ];
     };
   };
 }
