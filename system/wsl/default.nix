@@ -1,9 +1,10 @@
-{ pkgs, lib, username, ... }: {
+{ pkgs, lib, hostname, username, ... }: {
   imports = [
-    ./overlays
+    ../overlays/rust.nix
     ./system-packages.nix
   ];
 
+  networking.hostName = hostname;
   users.users.${username} = {
     isNormalUser = true;
     description = username;

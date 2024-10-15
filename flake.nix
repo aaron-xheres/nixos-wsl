@@ -35,30 +35,30 @@
     home-manager,
     nix-ld, 
     ... 
-  } @ inputs: let
-    system = "x86_64-linux";
-    username = "nixos";
-
-    pkgs-unstable = import nixpkgs-unstable { 
-      inherit system;
-      config.allowUnfree = true;
-    };
-
-    specialArgs = { 
-      inherit inputs; 
-      inherit username;
-      inherit nixpkgs;
-      inherit pkgs-unstable; 
-      inherit rust-overlay;
-    };
-  in {
+  } @ inputs: {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      nixos-wsl = let
+        system = "x86_64-linux";
+        hostname = "nixos-wsl";
+        username = "nixos";
+        pkgs-unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        specialArgs = {
+          inherit inputs;
+          inherit hostname;
+          inherit username;
+          inherit nixpkgs;
+          inherit pkgs-unstable;
+          inherit rust-overlay;
+        };
+      in nixpkgs.lib.nixosSystem {
         inherit system;
-        inherit specialArgs;
-        
+        inherit specialArgs;  
+
         modules = [
-          ./system
+          ./system/wsl
 
           nixos-wsl.nixosModules.default {
             system.stateVersion = "24.05";
@@ -72,7 +72,7 @@
             home-manager.extraSpecialArgs = inputs // specialArgs;
             home-manager.users.${username} = import ./home;
           }
-          
+ 
           nix-ld.nixosModules.nix-ld
         ];
       };
