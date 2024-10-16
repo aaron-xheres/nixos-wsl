@@ -8,16 +8,23 @@ return {
     -- Default Langauge Servers (without external dependencies)
     local ensure_installed_ls = {
       "lua_ls",
+      "nil_ls",
     }
 
     -- Default Formatters (without external dependencies)
     local ensure_installed_fmt = {
       "stylua",
+      "nixpkgs-fmt",
     }
 
     -- Check if specific bin exists, then ensure specific configs
+    local function isCommandExitOk(cmd)
+      vim.fn.system(cmd)
+      return vim.v.shell_error == 0
+    end
+
     -- NodeJS
-    if vim.cmd("silent! node -v") == 0 then
+    if isCommandExitOk("node -v") then
       -- Langauge Server(s)
       table.insert(ensure_installed_ls, "ts_ls")
       table.insert(ensure_installed_ls, "cssls")
@@ -27,7 +34,8 @@ return {
       table.insert(ensure_installed_fmt, "eslint_d")
     end
 
-    if vim.cmd("silent! python -V") == 0 then
+    -- Python
+    if isCommandExitOk("python -V") then
       -- Langauge Server(s)
       table.insert(ensure_installed_ls, "pyright")
       -- Linter(s) / Formatter(s)
@@ -36,14 +44,6 @@ return {
       table.insert(ensure_installed_fmt, "pylint")
     end
 
-    if vim.cmd("silent! cargo -V") == 0 then
-      -- Langauge Server(s)
-      table.insert(ensure_installed_ls, "nil_ls")
-      table.insert(ensure_installed_ls, "rust_analyzer")
-      -- Linter(s) / Formatter(s)
-      table.insert(ensure_installed_fmt, "nixpkgs-fmt")
-      table.insert(ensure_installed_fmt, "rustfmt")
-    end
     require("mason").setup()
     require("mason-lspconfig").setup({
       ensure_installed = ensure_installed_ls,
