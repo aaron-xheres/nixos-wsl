@@ -5,4 +5,6 @@
     ./fzf.nix
     ./bat.nix
   ];
+
+  programs.zoxide.enable = true;
 }
