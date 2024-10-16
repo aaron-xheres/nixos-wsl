@@ -16,6 +16,7 @@
     syntaxHighlighting.enable = true;
 
     envExtra = ''
+      export XDG_CACHE_HOME=/home/$(id -un)/.cache
       export WINDOWS=/mnt/c
       export WINDOWS_HOME=/mnt/c/Users/$(powershell.exe -noninteractive -command "[Environment]::UserName" | sed -e "s/\r//g")
     '';
