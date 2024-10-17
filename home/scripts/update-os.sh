@@ -100,37 +100,43 @@ set_owner_permissions() {
 set_owner_permissions
 
 # Copy configurations
-if [[ "$copy_config" = true ]]; then
-  # Create a backup of current NixOS directory to /tmp
-  sudo rm -rf "$tmp_dir"
+# Create a backup of current NixOS directory to /tmp
+sudo rm -rf "$tmp_dir"
 
-  sudo mkdir -p "$tmp_dir/cdir"
-  sudo cp -rfL $nixos_dir "$tmp_dir/nixos"
+sudo mkdir -p "$tmp_dir/cdir"
+sudo cp -rfL $nixos_dir "$tmp_dir/nixos"
 
-  for var in "${cdir_names[@]}"; do
-    dir="${(P)var}"
-    
-    if [[ "$var" == "cdir_scripts" ]]; then
-      # Scripts
-      copy_to_dir="$home_dir"
-    elif [[ "$var" == "cdir_nvim" ]]; then
-      # Neovim
-      copy_to_dir="$home_dir/nvim"
-    elif [[ "$var" == "cdir_omz" ]]; then
-      # Oh-my-zsh
-      copy_to_dir="$home_dir/zsh"
-    fi
+for var in "${cdir_names[@]}"; do
+  dir="${(P)var}"
+  
+  if [[ "$var" == "cdir_scripts" ]]; then
+    # Scripts
+    copy_to_dir="$home_dir"
+  elif [[ "$var" == "cdir_nvim" ]]; then
+    # Neovim
+    copy_to_dir="$home_dir/nvim"
+  elif [[ "$var" == "cdir_omz" ]]; then
+    # Oh-my-zsh
+    copy_to_dir="$home_dir/zsh"
+  fi
 
-      sudo cp -rf "$HOME/$dir" "$tmp_dir/cdir"
-      sudo cp -rfL "$HOME/$dir" $copy_to_dir
+  # Copy current state of config
+  sudo cp -rf "$HOME/$dir" "$tmp_dir/cdir"
+
+  # Copy Config
+  if [[ "$copy_config" = true ]]; then
+    sudo cp -rfL "$HOME/$dir" $copy_to_dir
 
     # Special Handling
     if [[ "$var" == "cdir_nvim" ]]; then
       sudo rm -rf "$home_dir/nvim/config"
       sudo mv "$home_dir/nvim/nvim" "$home_dir/nvim/config"
     fi
-  done
-fi
+  fi
+
+  # Remove these directory to prevent hash conflicts when building
+  sudo rm -rf $HOME/$dir
+done
 
 # Set ownsership and permissions again for copying linked configs
 cd $nixos_dir
@@ -180,6 +186,15 @@ else
     set_owner_permissions
   fi
 
+  # Revert config files
+  for var in "${cdir_names[@]}"; do
+    dir="${(P)var}"
+
+    mkdir -p "$dir"
+    sudo cp -rf "$tmp_dir/cdir/$dir" "$HOME/$dir"
+    sudo chown -R $(id -un) "$HOME/$dir"
+  done 
+  
   echo
   echo "Update failed"
   echo "--------------------"
