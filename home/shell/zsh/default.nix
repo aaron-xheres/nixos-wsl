@@ -56,7 +56,7 @@
     shellAliases = {
       # Windows Commands
       winget = "winget.exe";
-      pwsh = "powershell.exe";
+      powershell = "powershell.exe";
 
       # Scripts
       update-os = "$HOME/scripts/update-os.sh";
