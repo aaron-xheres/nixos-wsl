@@ -58,7 +58,8 @@
     # Project Management
     pkgs-unstable.devenv
 
-    # Langauges
-    rust-bin.stable.latest.default # Rust
+    # Mason LSP Installs
+    rust-bin.stable.latest.default
+    nodejs-slim
   ];
 }
