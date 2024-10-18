@@ -6,7 +6,6 @@
   imports = [
      ./shell
      ./nvim
-     ./direnv
      ./git.nix
   ];
 
@@ -51,6 +50,9 @@
     # Build
     gnumake
     gcc
+
+    # Project Management
+    devenv
 
     pkgs.rust-bin.stable.latest.default # Rust
   ];
