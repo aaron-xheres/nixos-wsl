@@ -53,6 +53,7 @@
 
     # Project Management
     devenv
+    direnv
 
     pkgs.rust-bin.stable.latest.default # Rust
   ];
