@@ -24,6 +24,10 @@
     stateVersion = "24.05";
   };
 
+  # direnv
+  programs.direnv = {
+    enable = true;
+  };
 
   # Programs
   home.packages = with pkgs; [
@@ -53,7 +57,6 @@
 
     # Project Management
     devenv
-    direnv
 
     pkgs.rust-bin.stable.latest.default # Rust
   ];
