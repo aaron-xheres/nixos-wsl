@@ -68,7 +68,7 @@
       vimdiff = "nvim -d";
 
       # ls
-      ls = "eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions";
+      ls = "eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --group-directories-first";
       lla = "eza -llah --group-directories-first";
 
       # cat
