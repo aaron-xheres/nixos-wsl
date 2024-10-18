@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: {
+{ pkgs, pkgs-unstable, username, ... }: {
   # Enable Home Manager
   programs.home-manager.enable = true;
 
@@ -56,8 +56,9 @@
     gcc
 
     # Project Management
-    devenv
+    pkgs-unstable.devenv
 
-    pkgs.rust-bin.stable.latest.default # Rust
+    # Langauges
+    rust-bin.stable.latest.default # Rust
   ];
 }
