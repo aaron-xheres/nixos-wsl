@@ -5,33 +5,28 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
   config = function()
-    -- Default Langauge Servers (without external dependencies)
+    -- Default Langauge Servers (installable with default setup)
     local ensure_installed_ls = {
       "lua_ls",
       "nil_ls",
+      "rust_analyzer",
+      "ts_ls",
+      "cssls",
+      "tailwindcss",
     }
 
-    -- Default Formatters (without external dependencies)
+    -- Default Formatters (installable with default setup)
     local ensure_installed_fmt = {
       "stylua",
       "nixpkgs-fmt",
+      "prettier",
+      "eslint_d",
     }
 
     -- Check if specific bin exists, then ensure specific configs
     local function isCommandExitOk(cmd)
       vim.fn.system(cmd)
       return vim.v.shell_error == 0
-    end
-
-    -- NodeJS
-    if isCommandExitOk("node -v") then
-      -- Langauge Server(s)
-      table.insert(ensure_installed_ls, "ts_ls")
-      table.insert(ensure_installed_ls, "cssls")
-      table.insert(ensure_installed_ls, "tailwindcss")
-      -- Linter(s) / Formatter(s)
-      table.insert(ensure_installed_fmt, "prettier")
-      table.insert(ensure_installed_fmt, "eslint_d")
     end
 
     -- Python

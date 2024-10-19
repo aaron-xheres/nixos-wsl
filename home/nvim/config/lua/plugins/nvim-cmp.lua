@@ -24,7 +24,6 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
       }),
       sources = cmp.config.sources({
-        { name = "supermaven" },
         { name = "nvim_lsp" },
         { name = "buffer" },
         { name = "path" },

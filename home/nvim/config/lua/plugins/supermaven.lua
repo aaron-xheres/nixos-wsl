@@ -7,7 +7,6 @@ return {
         clear_suggestion = "<C-Tab>",
         accept_word = "<C-a>",
       },
-      disable_inline_completion = true,
     })
   end,
 }
