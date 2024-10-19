@@ -39,7 +39,10 @@ return {
       table.insert(ensure_installed_fmt, "pylint")
     end
 
-    require("mason").setup()
+    require("mason").setup({
+      PATH = "append",
+    })
+
     require("mason-lspconfig").setup({
       ensure_installed = ensure_installed_ls,
     })
