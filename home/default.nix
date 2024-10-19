@@ -15,11 +15,11 @@
     homeDirectory = "/home/${username}";
 
     # Copy Scripts
-    file."scripts" = {
-      source = ./scripts;
-      recursive = true;
-      executable = true;
-    };
+    #file."scripts" = {
+    #  source = ./scripts;
+    #  recursive = true;
+    #  executable = true;
+    #};
 
     # Activations
     activation = {

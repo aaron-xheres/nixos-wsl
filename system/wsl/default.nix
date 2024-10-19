@@ -1,6 +1,5 @@
 { pkgs, lib, hostname, username, ... }: {
   imports = [
-    ../overlays/rust.nix
     ./system-packages.nix
   ];
 
