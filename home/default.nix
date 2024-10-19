@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, username, ... }: {
+{ pkgs, pkgs-unstable, lib, username, ... }: {
   # Enable Home Manager
   programs.home-manager.enable = true;
 
@@ -19,6 +19,23 @@
       source = ./scripts;
       recursive = true;
       executable = true;
+    };
+
+    # Activations
+    activation = {
+      # Rustup
+      rustup_rustc = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${pkgs-unstable.rustup}/bin/rustup default stable
+      '';
+      rustup_rust-analyzer = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${pkgs-unstable.rustup}/bin/rustup component add rust-analyzer
+      '';
+      rustup_rustfmt = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${pkgs-unstable.rustup}/bin/rustup component add rustfmt
+      '';
+      rustup_clippy = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${pkgs-unstable.rustup}/bin/rustup component add clippy
+      '';
     };
 
     stateVersion = "24.05";
@@ -58,8 +75,10 @@
     # Project Management
     pkgs-unstable.devenv
 
+    # Rust
+    pkgs-unstable.rustup
+
     # Mason LSP Installs
-    rust-bin.stable.latest.default
     nodejs-slim
   ];
 }
