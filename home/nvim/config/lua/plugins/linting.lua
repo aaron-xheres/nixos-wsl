@@ -10,6 +10,7 @@ return {
       javascriptreact = { "eslint_d" },
       typescriptreact = { "eslint_d" },
       python = { "pylint" },
+      rust = { "clippy" },
     }
 
     -- eslint_d to ignore no config error
