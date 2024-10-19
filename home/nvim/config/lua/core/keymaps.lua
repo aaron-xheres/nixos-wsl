@@ -7,7 +7,6 @@ local keymap = vim.keymap
 -- Search
 keymap.set("n", "<leader>nh", ":nohl<cr>", { desc = "Search: Clear highlights" })
 
-
 -- Window Management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split: Vertical" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split: Horizontally" })
