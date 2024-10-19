@@ -7,12 +7,6 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
-    # Rust Overlay (always use latest stable)
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Home-Manager
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -30,7 +24,6 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
-    rust-overlay,
     nixos-wsl,
     home-manager,
     nix-ld, 
@@ -51,7 +44,6 @@
           inherit username;
           inherit nixpkgs;
           inherit pkgs-unstable;
-          inherit rust-overlay;
         };
       in nixpkgs.lib.nixosSystem {
         inherit system;
