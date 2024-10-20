@@ -10,11 +10,10 @@ vim.cmd("let g:netrw_liststyle = 3")
 opt.number = true
 
 -- Tabs and Indentation
-opt.tabstop = 4
-opt.shiftwidth = 4
+opt.tabstop = 2
+opt.shiftwidth = 2
 opt.expandtab = true
 opt.autoindent = true
-
 opt.backspace = "indent,eol,start"
 
 -- Search Settings
@@ -25,7 +24,7 @@ opt.smartcase = true
 opt.clipboard:append("unnamedplus")
 
 -- Appearance
-opt.wrap = false
+opt.wrap = true
 opt.cursorline = true
 
 opt.termguicolors = true
