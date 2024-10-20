@@ -75,10 +75,13 @@
     # Project Management
     pkgs-unstable.devenv
 
+    # Nix Related
+    pkgs-unstable.nixfmt-rfc-style
+
     # Rust
     pkgs-unstable.rustup
 
     # Mason LSP Installs
-    nodejs-slim
+    nodejs_22
   ];
 }
