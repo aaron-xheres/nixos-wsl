@@ -18,8 +18,8 @@
       # --- Keybinds ---
       # Prefix
       unbind C-b
-      set -g prefix C-Space
-      bind C-Space send-prefix
+      set -g prefix M-Space
+      bind M-Space send-prefix
 
       # Split Pane
       unbind '"'
