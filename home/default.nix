@@ -1,12 +1,19 @@
-{ pkgs, pkgs-unstable, lib, username, ... }: {
+{
+  pkgs,
+  pkgs-unstable,
+  lib,
+  username,
+  ...
+}:
+{
   # Enable Home Manager
   programs.home-manager.enable = true;
 
   # Specific Program Imports
   imports = [
-     ./shell
-     ./nvim
-     ./git.nix
+    ./shell
+    ./nvim
+    ./git.nix
   ];
 
   # Home Configuration
@@ -59,6 +66,7 @@
     eza
 
     # Productivity
+    pkgs-unstable.glab
     gh
     nnn
     lazygit
